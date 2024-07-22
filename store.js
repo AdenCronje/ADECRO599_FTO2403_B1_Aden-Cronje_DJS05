@@ -28,7 +28,8 @@ function initializeStore(reducer) {
   return {
     getState: () => currentState,
     dispatch: (action) => {
-      currentState = reducer(currentState, action).foreach(() => {});
+      currentState = reducer(currentState, action);
+      listeners.forEach((listener) => listener());
       subscribe: (listener) => {
         listener.push(listeners);
         return () => {
@@ -38,3 +39,8 @@ function initializeStore(reducer) {
     },
   };
 }
+
+let myStore = initializeStore();
+
+// Initial state verification
+console.log(myStore.getState());
