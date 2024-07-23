@@ -30,11 +30,11 @@ function initializeStore(reducer) {
     dispatch: (action) => {
       currentState = reducer(currentState, action);
       listeners.forEach((listener) => listener());
-      subscribe: (listener) => {
-        listener.push(listeners);
-        return () => {
-          listener.filter(listeners);
-        };
+    },
+    subscribe: (listener) => {
+      listeners.push(listener);
+      return () => {
+        listener.filter(listeners);
       };
     },
   };
@@ -46,18 +46,5 @@ let myStore = initializeStore(reducer);
 console.log(myStore.getState());
 
 //Subscribe to state changes
-myStore.subscribe(() => console.log(store.getState()));
-console.log(myStore.getState());
-
-// SCENARIO 2: Incrementing the Counter
-myStore.dispatch({ type: ADD });
-myStore.dispatch({ type: ADD });
-console.log(myStore.getState());
-
-// SCENARIO 3: Decrementing the Counter
-myStore.dispatch({ type: SUBTRACT });
-console.log(myStore.getState());
-
-// SCENARIO 4: Resetting the Counter
-myStore.dispatch({ type: RESET });
+myStore.subscribe(() => console.log(myStore.getState()));
 console.log(myStore.getState());
