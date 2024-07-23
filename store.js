@@ -11,9 +11,9 @@ const RESET = "RESET";
 function reducer(state = initialState, action) {
   switch (action.type) {
     case ADD:
-      return { ...(state += 1) };
+      return { ...state, count: state.count + 1 };
     case SUBTRACT:
-      return { ...(state -= 1) };
+      return { ...state, count: state.count - 1 };
     case RESET:
       return { count: 0 };
     default:
@@ -42,9 +42,22 @@ function initializeStore(reducer) {
 
 let myStore = initializeStore(reducer);
 
-// Initial state verification
+// SCENARIO 1: Initial state verification
 console.log(myStore.getState());
 
+//Subscribe to state changes
+myStore.subscribe(() => console.log(store.getState()));
+console.log(myStore.getState());
+
+// SCENARIO 2: Incrementing the Counter
 myStore.dispatch({ type: ADD });
 myStore.dispatch({ type: ADD });
+console.log(myStore.getState());
+
+// SCENARIO 3: Decrementing the Counter
+myStore.dispatch({ type: SUBTRACT });
+console.log(myStore.getState());
+
+// SCENARIO 4: Resetting the Counter
+myStore.dispatch({ type: RESET });
 console.log(myStore.getState());
