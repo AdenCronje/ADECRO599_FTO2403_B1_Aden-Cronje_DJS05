@@ -40,7 +40,7 @@ function initializeStore(reducer) {
   };
 }
 
-let myStore = initializeStore();
+let myStore = initializeStore(reducer);
 
 // Initial state verification
 console.log(myStore.getState());
