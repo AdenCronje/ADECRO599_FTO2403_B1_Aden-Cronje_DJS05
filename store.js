@@ -3,8 +3,8 @@ const initialState = {
 };
 
 // Different types of actions
-const ADD = "INCREASE";
-const SUBTRACT = "DECREASE";
+const ADD = "ADD";
+const SUBTRACT = "SUBTRACT";
 const RESET = "RESET";
 
 // Handle actions and update state
@@ -43,4 +43,8 @@ function initializeStore(reducer) {
 let myStore = initializeStore(reducer);
 
 // Initial state verification
+console.log(myStore.getState());
+
+myStore.dispatch({ type: ADD });
+myStore.dispatch({ type: ADD });
 console.log(myStore.getState());
